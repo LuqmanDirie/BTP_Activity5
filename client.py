@@ -7,7 +7,15 @@ def main():
         sock.connect((host, port))
         print("Connected to the server.")
         
-        print("Closing connection.")
+        while True:
+            message = input("Enter a message ('quit' to exit): ")
+            sock.sendall(message.encode())
+            if message == "quit":
+                break
+            response = sock.recv(1024).decode()
+            print(f"Server responded: {response}")
+            
+        print("Connection closed.")
 
 if __name__ == "__main__":
     main()
